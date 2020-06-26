@@ -1,14 +1,39 @@
-//Image variables
-let imageScenario;
+//GLOBAL GAME VARIABLE
+let scenarioImage;
 let gameOverImage;
+let score; //Class
+let gameSound;
+let jumpSound;
+let gameOverSound;
 
-//rainDrop
-let rainDrop;
-let rainDropImage;
-let rainDropEixoX = 72
-let rainDropEixoy = 52;
-let rainDropAlturaLargura = 52;
-let rainDropAltura_larguraSprite = 104;
+//WITCH VARIABLE
+let witch; //Class
+let witchImage;
+
+//Enemies VARIABLES
+let rainDropImage; let trollImage; let flyingDropImage;
+const enemies = [] ;
+
+//SPRITE 2D_ARRAYS
+const witchArray2D = [
+    [0, 0],
+    [220, 0],
+    [440, 0],
+    [660, 0],
+    [0, 270],
+    [220, 270],
+    [440, 270],
+    [660, 270],
+    [0, 540],
+    [220, 540],
+    [440, 540],
+    [660, 540],
+    [0, 810],
+    [220, 810],
+    [440, 810],
+    [660, 810],
+]
+
 const enemyArray2D = [
     [0, 0],
     [104, 0],
@@ -38,40 +63,8 @@ const enemyArray2D = [
     [104, 626],
     [208, 626],
     [312, 626],
-  ]
+]
 
-//Witch config
-let witch;
-let witchImage;
-let witchHeight = 110;
-let witchWidth = 135;
-let witchEixoX = 0;
-let witchEixoY = 20;
-let witchWidthSprite = 220;
-let witchHeightSprite = 270;
-const witchArray2D = [
-    [0, 0],
-    [220, 0],
-    [440, 0],
-    [660, 0],
-    [0, 270],
-    [220, 270],
-    [440, 270],
-    [660, 270],
-    [0, 540],
-    [220, 540],
-    [440, 540],
-    [660, 540],
-    [0, 810],
-    [220, 810],
-    [440, 810],
-    [660, 810],
-  ]
-
-
-//troll cconfig
-let troll;
-let trollImage;
 const trollArray2D = [
     [0,0],
     [400,0],
@@ -101,11 +94,9 @@ const trollArray2D = [
     [0, 2000],
     [400, 2000],
     [800, 2000],
-  ]
+]
 
-let flyingDrop;
-let flyingDropImage;
-  const flyingDropArray2D = [
+const flyingDropArray2D = [
     [0,0],
     [200, 0],
     [400, 0],
@@ -122,18 +113,11 @@ let flyingDropImage;
     [200, 600],
     [400, 600],
     [0, 750],
-  ]
+]
 
-
-let score;
-
-//p5.prototype.registerPreloadMethod('loadSound'); 
-//musica = loadSound('sons/poxa.mp3');
-//musica.loop();
 function preload() 
 {
-    
-    imageScenario = loadImage('imagens/cenario/floresta.png');
+    scenarioImage = loadImage('imagens/cenario/floresta.png');
     gameOverImage = loadImage('imagens/assets/game-over.png')
     witchImage = loadImage('imagens/personagem/witch.png');
     rainDropImage = loadImage('imagens/inimigos/gotinha.png');
@@ -145,62 +129,29 @@ function preload()
 function setup()
 {    
     createCanvas(windowWidth, windowHeight);
-    scenario = new Scenario(imageScenario, 2);
+    scenario = new Scenario(scenarioImage, 2);
     score = new Score();
 
+    witch = new Witch(witchArray2D, witchImage, 30, 30, 110, 110, 220, 270);
+
+    const rainDrop = new Enemy(enemyArray2D, rainDropImage, width - 52, 30, 52, 52, 104, 104);
+
+    const troll = new Enemy(trollArray2D, trollImage, width, 0, 200, 200, 400, 400);
+
+    const flyingDrop = new Enemy(flyingDropArray2D, flyingDropImage, width-52, 200, 100, 75, 200, 150);
+
+    const flyingDrop1 = new Enemy(flyingDropArray2D, flyingDropImage, width-52, 400, 100, 75, 200, 150);
     
-    witch = new Witch(
-        witchArray2D, 
-        witchImage,
-        witchEixoX,
-        height - witchHeight -witchEixoY,
-        witchWidth,
-        witchHeight,
-        witchHeightSprite,
-        witchWidthSprite    
-    );
+    enemies.push(rainDrop, troll, flyingDrop, flyingDrop1);
 
-
-    rainDrop = new Enemy(    
-        enemyArray2D, 
-        rainDropImage, 
-        width - rainDropEixoX, 
-        height - rainDropEixoy, 
-        rainDropAlturaLargura, 
-        rainDropAlturaLargura, 
-        rainDropAltura_larguraSprite, 
-        rainDropAltura_larguraSprite
-    );
-
-    troll = new Enemy(
-        trollArray2D, 
-        trollImage, 
-        width, 
-        height-200, 
-        200, 
-        200, 
-        400, 
-        400
-    );
-
-    flyingDrop = new Enemy(
-        flyingDropArray2D, 
-        flyingDropImage,
-        width-52,
-        200,
-        100,
-        75,
-        200,
-        150
-    );    
-
+    frameRate(45)
 }
 
 
-function keyPressed() {
-    if(key === 'ArrowUp'){
-        witch.jump();
-    }
+function keyPressed() 
+{
+    if(key === 'ArrowUp')
+        witch.jumps();    
 }
 
 function draw() 
@@ -211,23 +162,19 @@ function draw()
     score.showScore();
     score.increaseScore();
 
-    rainDrop.showCharacter();
-    rainDrop.moveLeft();
-    
-    troll.showCharacter();
-    troll.moveLeft();
-
-    flyingDrop.showCharacter();
-    flyingDrop.moveLeft();
-
-    
     witch.showWitch();
     witch.gravityIn();  
+
+    enemies.forEach(enemy => {
+        enemy.showCharacter();
+        enemy.moveLeft();
+    })
+    
+    
     /*
-    if(witch.colliding(rainDrop)){
+    if(witch.colliding(enemies)){
         image(gameOverImage, width/2 - 200, height/2)
         noLoop();
     }
     */
-    
 }

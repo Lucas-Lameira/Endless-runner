@@ -1,0 +1,22 @@
+
+let rainDropEixoX = 72
+let rainDropEixoy = 52;
+let rainDropAlturaLargura = 52;
+let rainDropAltura_larguraSprite = 104;
+
+
+let witchHeight = 110;
+let witchWidth = 135;
+let witchEixoX = 0;
+let witchEixoY = 20;
+let witchWidthSprite = 220;
+let witchHeightSprite = 270;
+
+
+
+
+
+
+//p5.prototype.registerPreloadMethod('loadSound'); 
+//musica = loadSound('sons/poxa.mp3');
+//musica.loop();

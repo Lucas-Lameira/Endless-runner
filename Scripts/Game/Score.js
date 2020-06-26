@@ -5,11 +5,11 @@ class Score {
 
     showScore(){
         textAlign(RIGHT);
-        fill('#FFF')
+        fill('#ff5100')
         textSize(100)
         text(
             parseInt(this.score), 
-            width-50, 
+            width-50, //eixo x
             110//eixo y
         )
     }

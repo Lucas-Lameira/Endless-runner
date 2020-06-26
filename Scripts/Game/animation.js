@@ -1,11 +1,12 @@
 class Animation {
-    constructor(array2D, image, x, y, largura, altura, larguraSprite, alturaSprite) {
+    constructor(array2D, image, x, yVar, largura, altura, larguraSprite, alturaSprite) {
         this.array2D = array2D;
         this.image = image;
         this.largura = largura;
         this.altura = altura;
         this.x = x;
-        this.y = y;
+        this.yVar = yVar;
+        this.y = height - this.altura - this.yVar;//eixo y dos inimigos
         this.larguraSprite = larguraSprite;
         this.alturaSprite = alturaSprite;
 

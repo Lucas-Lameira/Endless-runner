@@ -1,6 +1,6 @@
 class Enemy extends Animation {
-    constructor(rainDropArray2D, image, x, y, largura, altura, larguraSprite, alturaSprite){
-        super(rainDropArray2D, image, x, y, largura, altura, larguraSprite, alturaSprite);   
+    constructor(rainDropArray2D, image, x, yVar, largura, altura, larguraSprite, alturaSprite){
+        super(rainDropArray2D, image, x, yVar, largura, altura, larguraSprite, alturaSprite);   
 
         this.enemySpeed = 6;
     }    

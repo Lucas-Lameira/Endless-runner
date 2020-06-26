@@ -1,23 +1,25 @@
 class Witch {    
-    constructor(array2D, image, x, y, largura, altura, larguraSprite, alturaSprite) {
+    constructor(array2D, image, x, yVar, largura, altura, larguraSprite, alturaSprite) {
         this.array2D = array2D;
         this.image = image;
-        this.largura = largura;
         this.altura = altura;
-        this.x = x;
-        this.y = y;
+        this.x = x;                
+        this.yVar = yVar; 
+        this.vertical = height - this.altura - yVar; //eixo y dos inimigos        
+        this.largura = largura;
         this.larguraSprite = larguraSprite;
         this.alturaSprite = alturaSprite;
-
+        
         this.frame = 0;
         this.n = this.array2D.length - 1;
 
-
-        this.ystart = height -this.altura;
+        this.ystart = height - this.altura - this.yVar;
         this.y = this.ystart;
-        
+
         this.jumpSpeed = 0;
-        this.gravity = 3;
+        this.jumpHeight = -50;
+        this.gravity = 5;
+        this.jumping = 0        
     }
 
     showWitch() {
@@ -44,19 +46,27 @@ class Witch {
         }
     }                
     
-    jump() {
-        this.jumpSpeed = -50;
+    jumps() {
+        if(this.jumping < 2){            
+            this.jumpSpeed = this.jumpHeight;
+            this.jumping++            
+        }
+        
     }
 
     gravityIn(){
-        this.y += this.jumpSpeed;
-        this.jumpSpeed += this.gravity;
-
-        if(this.y > this.ystart){
+        this.y = this.y + this.jumpSpeed;
+        
+        this.jumpSpeed = this.jumpSpeed + this.gravity;
+        
+        if(this.y > this.ystart)
+        {
             this.y = this.ystart;
+            this.jumping = 0;
         }
     }
 
+    /*
     colliding(Enemy) {
         const precision = .7;
         const colide = colideRectRect(
@@ -66,4 +76,5 @@ class Witch {
 
         return colide;
     }
+    */
 }
