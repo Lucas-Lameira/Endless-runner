@@ -5,7 +5,7 @@ class Witch {
         this.altura = altura;
         this.x = x;                
         this.yVar = yVar; 
-        this.vertical = height - this.altura - yVar; //eixo y dos inimigos        
+        this.ystart = height - this.altura - this.yVar; //eixo y da bruxa
         this.largura = largura;
         this.larguraSprite = larguraSprite;
         this.alturaSprite = alturaSprite;
@@ -13,13 +13,14 @@ class Witch {
         this.frame = 0;
         this.n = this.array2D.length - 1;
 
-        this.ystart = height - this.altura - this.yVar;
         this.y = this.ystart;
 
         this.jumpSpeed = 0;
         this.jumpHeight = -50;
         this.gravity = 5;
-        this.jumping = 0        
+        this.jumping = 0    
+        
+        this.invincible = false;
     }
 
     showWitch() {
@@ -49,15 +50,15 @@ class Witch {
     jumps() {
         if(this.jumping < 2){            
             this.jumpSpeed = this.jumpHeight;
-            this.jumping++            
+            this.jumping++;
         }
         
     }
 
     gravityIn(){
-        this.y = this.y + this.jumpSpeed;
+        this.y += this.jumpSpeed;
         
-        this.jumpSpeed = this.jumpSpeed + this.gravity;
+        this.jumpSpeed += this.gravity;
         
         if(this.y > this.ystart)
         {
@@ -66,15 +67,29 @@ class Witch {
         }
     }
 
-    /*
-    colliding(Enemy) {
-        const precision = .7;
-        const colide = colideRectRect(
-            this.x, this.y, this.largura * precision, this.altura * precision,
-            rainDrop.x, rainDrop.y, rainDrop.largura * precision, rainDrop.altura * precision
-        );
-
-        return colide;
+    Invincible (){
+        this.invincible = true;
+        setTimeout(()=> {this.invincible = false} , 1000)
+    }   
+    
+    colliding(enemy) { 
+        
+        if (this.invincible){
+            return false;
+        }
+        const precision = 0.7;
+        const b = collideRectRect(
+            this.x, 
+            this.y, 
+            this.largura * precision, 
+            this.altura * precision,
+            enemy.x, 
+            enemy.y, 
+            enemy.largura * precision, 
+            enemy.altura * precision
+            
+        );     
+        return b;       
     }
-    */
+    
 }

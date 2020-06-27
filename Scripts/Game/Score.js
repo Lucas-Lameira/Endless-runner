@@ -2,7 +2,7 @@ class Score {
     constructor(){
         this.score = 0;
     }
-
+    
     showScore(){
         textAlign(RIGHT);
         fill('#ff5100')
@@ -13,7 +13,7 @@ class Score {
             110//eixo y
         )
     }
-
+    //frame Based?
     increaseScore(){
         this.score+= 0.05;
     }

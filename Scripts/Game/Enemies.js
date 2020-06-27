@@ -1,16 +1,17 @@
 class Enemy extends Animation {
-    constructor(rainDropArray2D, image, x, yVar, largura, altura, larguraSprite, alturaSprite){
+    constructor(rainDropArray2D, image, x, yVar, largura, altura, larguraSprite, alturaSprite, speed){
         super(rainDropArray2D, image, x, yVar, largura, altura, larguraSprite, alturaSprite);   
 
-        this.enemySpeed = 6;
+        this.speed = speed;    
+        this.x = width;  
     }    
     
     moveLeft() {
-        this.x = this.x - this.enemySpeed;
-
-        if(this.x < -this.largura){
-            this.x = width;
-        }
+        this.x -= this.speed;        
+    }
+    
+    show(){        
+        this.x = width;
     }
 
 }

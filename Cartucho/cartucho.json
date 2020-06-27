@@ -1,0 +1,44 @@
+{
+    "witchLife": {
+        "maxLife": 3,
+        "minLife":3
+    },
+    "arrayMap": [
+    {
+        "enemy": 0,
+        "speed": 20
+    },
+    {
+        "enemy": 1,
+        "speed": 15
+    },
+    {
+        "enemy": 2,
+        "speed": 15
+    },
+    {
+        "enemy": 1,
+        "speed": 20
+    },
+    {
+        "enemy": 0,
+        "speed": 30
+    },
+    {
+        "enemy": 2,
+        "speed": 25
+    },
+    {
+        "enemy": 0,
+        "speed": 30
+    },
+    {
+        "enemy": 1,
+        "speed": 30
+    },
+    {
+        "enemy": 2,
+        "speed": 30
+    }  
+]
+}

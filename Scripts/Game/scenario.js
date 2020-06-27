@@ -6,12 +6,12 @@ class Scenario {
         this.speedX2 = width;//canvas width
     }
 
-
     show(){
         image(this.image, this.speedX1, 0, width, height); 
         image(this.image, this.speedX2, 0, width, height);    
     }
 
+    //move scenario left
     moveScenario(){
         this.speedX1 = this.speedX1 - this.speed;//- flows to the right
         this.speedX2 = this.speedX2 - this.speed;
